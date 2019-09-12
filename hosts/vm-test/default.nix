@@ -1,7 +1,9 @@
 { config, pkgs, ... }:
 # just an example top-level "configuration.nix" file within the themelios scheme
 {
-imports = [];
+imports = [
+../../modules/users.nix
+];
 
 i18n = {
 consoleFont = "Lat2-Terminus16";

@@ -40,6 +40,12 @@ networking.defaultGateway6 = {
     interface = "testnic";
 };
 
+services.openssh = {
+    enable = true;
+    challengeResponseAuthentication = false;
+    passwordAuthentication = false;
+};
+
 
 time.timeZone = "America/St_Johns";
 

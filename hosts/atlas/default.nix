@@ -6,9 +6,6 @@ imports = [
     ../../modules/tools.nix
 ];
 
-
-imports = [ ../../modules/tools.nix ];
-
 i18n = {
     consoleFont = "Lat2-Terminus16";
     consoleKeyMap = "us";

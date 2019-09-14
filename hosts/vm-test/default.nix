@@ -19,8 +19,7 @@ i18n = {
 
 networking.interfaces.ens33 = {
     ipv4 = {
-        address = "10.99.99.20";
-        prefixLength = 24;
+        addresses = [ { address = "10.99.99.20"; prefixLength = 24 } ];
     };
 };
 

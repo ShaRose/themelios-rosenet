@@ -2,13 +2,14 @@
 # just an example top-level "configuration.nix" file within the themelios scheme
 {
 imports = [
-../../modules/users.nix
+    ../../modules/users.nix
+    ../../modules/tools.nix
 ];
 
 i18n = {
-consoleFont = "Lat2-Terminus16";
-consoleKeyMap = "us";
-defaultLocale = "en_US.UTF-8";
+    consoleFont = "Lat2-Terminus16";
+    consoleKeyMap = "us";
+    defaultLocale = "en_US.UTF-8";
 };
 
 services.udev.extraRules = ''
@@ -23,13 +24,10 @@ networking.interfaces.testnic.ipv4 = {
 networking.defaultGateway = {
     address = "10.99.99.1";
     interface = "testnic";
-}
+};
 
 
 time.timeZone = "America/St_Johns";
-
-programs.mtr.enable = true;
-programs.bash.enableCompletion = true;
 
 networking.hostName = "vm-test";
 }

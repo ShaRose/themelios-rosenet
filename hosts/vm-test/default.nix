@@ -17,9 +17,11 @@ i18n = {
 #KERNEL=="eth*", ATTR{address}=="00:0c:29:c8:6f:c9", NAME="testnic"
 #'';
 
-networking.interfaces.ens33.ipv4 = {
-    address = "10.99.99.20";
-    prefixLength = 24;
+networking.interfaces.ens33 = {
+    ipv4 = {
+        address = "10.99.99.20";
+        prefixLength = 24;
+    };
 };
 
 networking.defaultGateway = {

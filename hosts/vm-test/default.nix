@@ -25,10 +25,18 @@ networking.interfaces.testnic = {
     ipv4 = {
         addresses = [ { address = "10.99.99.20"; prefixLength = 24; } ];
     };
+    ipv6 = {
+        addresses = [ { address = "2001:470:8c55:9999::20"; prefixLength = 64; } ];
+    };
 };
 
 networking.defaultGateway = {
     address = "10.99.99.1";
+    interface = "testnic";
+};
+
+networking.defaultGateway6 = {
+    address = "2001:470:8c55:9999::1";
     interface = "testnic";
 };
 

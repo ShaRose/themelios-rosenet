@@ -12,12 +12,12 @@ i18n = {
     defaultLocale = "en_US.UTF-8";
 };
 
-#networking.usePredictableInterfaceNames = false;
-#services.udev.extraRules = ''
-#KERNEL=="eth*", ATTR{address}=="00:0c:29:c8:6f:c9", NAME="testnic"
-#'';
+networking.usePredictableInterfaceNames = false;
+services.udev.extraRules = ''
+KERNEL=="eth*", ATTR{address}=="00:0c:29:c8:6f:c9", NAME="testnic"
+'';
 
-networking.interfaces.ens33 = {
+networking.interfaces.testnic = {
     ipv4 = {
         addresses = [ { address = "10.99.99.20"; prefixLength = 24; } ];
     };
@@ -25,7 +25,7 @@ networking.interfaces.ens33 = {
 
 networking.defaultGateway = {
     address = "10.99.99.1";
-    interface = "ens33";
+    interface = "testnic";
 };
 
 

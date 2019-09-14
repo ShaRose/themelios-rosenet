@@ -12,6 +12,7 @@ i18n = {
     defaultLocale = "en_US.UTF-8";
 };
 
+networking.usePredictableInterfaceNames = false;
 services.udev.extraRules = ''
 KERNEL=="eth*", ATTR{address}=="00:0C:29:C8:6F:C9", NAME="testnic"
 '';

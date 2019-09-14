@@ -2,7 +2,7 @@
 # just an example top-level "configuration.nix" file within the themelios scheme
 {
 imports = [
-#    ../../modules/users.nix
+    ../../modules/users.nix
     ../../modules/tools.nix
 ];
 
@@ -11,6 +11,8 @@ i18n = {
     consoleKeyMap = "us";
     defaultLocale = "en_US.UTF-8";
 };
+
+
 
 networking.usePredictableInterfaceNames = false;
 services.udev.extraRules = ''

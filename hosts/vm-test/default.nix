@@ -2,7 +2,7 @@
 # just an example top-level "configuration.nix" file within the themelios scheme
 {
 imports = [
-    ../../modules/users.nix
+#    ../../modules/users.nix
     ../../modules/tools.nix
 ];
 
@@ -16,6 +16,10 @@ networking.usePredictableInterfaceNames = false;
 services.udev.extraRules = ''
 KERNEL=="eth*", ATTR{address}=="00:0c:29:c8:6f:c9", NAME="testnic"
 '';
+
+networking.useDHCP = false;
+
+networking.nameservers = [ "10.99.99.1" ];
 
 networking.interfaces.testnic = {
     ipv4 = {

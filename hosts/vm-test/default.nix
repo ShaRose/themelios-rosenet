@@ -11,6 +11,21 @@ consoleKeyMap = "us";
 defaultLocale = "en_US.UTF-8";
 };
 
+services.udev.extraRules = ''
+KERNEL=="eth*", ATTR{address}=="00:0C:29:C8:6F:C9", NAME="testnic"
+'';
+
+networking.interfaces.testnic.ipv4 = {
+    address = "10.99.99.20";
+    prefixLength = 24;
+};
+
+networking.defaultGateway = {
+    address = "10.99.99.1";
+    interface = "testnic";
+}
+
+
 time.timeZone = "America/St_Johns";
 
 programs.mtr.enable = true;

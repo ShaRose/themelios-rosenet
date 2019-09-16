@@ -17,4 +17,7 @@ imports = [
 
 networking.hostName = "atlas";
 
+#Testing, so security can suck it
+security.sudo.wheelNeedsPassword = false;
+
 }

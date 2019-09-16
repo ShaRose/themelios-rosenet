@@ -12,6 +12,8 @@ programs.vim.defaultEditor = true;
 environment.systemPackages = [
 pkgs.mbuffer
 pkgs.htop
+pkgs.tcpdump
+pkgs.cifs-utils
 ];
 
 }

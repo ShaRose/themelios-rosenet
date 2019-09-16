@@ -24,8 +24,14 @@ networking.interfaces.brqemu = {
 
 #add brqemu to quagga
 
-services.quagga.ospf.config = ''network 10.10.3.0/24 area 0'';
-services.quagga.ospf6.config = ''interface brqemu area 0.0.0.0'';
+services.quagga.ospf.config = ''
+router ospf
+  network 10.10.3.0/24 area 0
+'';
+services.quagga.ospf6.config = ''
+router ospf6
+  interface brqemu area 0.0.0.0
+'';
 
 #dhcpv4
 

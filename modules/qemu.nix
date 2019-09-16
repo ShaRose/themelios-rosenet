@@ -1,7 +1,7 @@
 { config, pkgs, ... }:
 {
 
-# Arguments: ipaddr, qemuaddr (all the subnets etc can be calculated from it)
+# Arguments: qemuaddr (all the subnets etc can be calculated from it)
 
 #sharoseadmin should have libvirt access
 users.users.sharoseadmin.extraGroups = [ "libvirtd" ];

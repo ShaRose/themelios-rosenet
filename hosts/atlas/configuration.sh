@@ -4,8 +4,7 @@ use_sgdisk_clear="true"     # use sgdisk --clear
 use_wipefs_all="true"       # use wipefs --all
 use_zero_disks="false"      # use dd if=/dev/zero ...
 zfs_pool_name="atlas-pool"
-#zfs_pool_disks=("/dev/disk/by-id/ata-Micron_M600_MTFDDAK1T0MBF_14410D7D9456")
-zfs_pool_disks=("/dev/disk/by-id/usb-IS917_innostor_201207221893-0:0")
+zfs_pool_disks=("/dev/disk/by-id/ata-Micron_M600_MTFDDAK1T0MBF_14410D7D9456")
 zfs_pool_type=""            # use "" for single, or "mirror", "raidz1", etc.
 zfs_encrypt_home="false"    # only set to true if you are using a nixos ISO with ZFS 0.8 or higher.
 zfs_auto_snapshot=() # datasets to be set with com.sun:auto-snapshot=true

@@ -14,6 +14,7 @@ pkgs.mbuffer
 pkgs.htop
 pkgs.tcpdump
 pkgs.cifs-utils
+pkgs.gitMinimal
 ];
 
 }

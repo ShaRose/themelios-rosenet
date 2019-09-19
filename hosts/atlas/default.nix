@@ -13,6 +13,7 @@ imports = [
   ../../modules/networking.nix
   ../../modules/quagga.nix
   ../../modules/qemu.nix
+  ../../modules/docker.nix
 ];
 
 networking.hostName = "atlas";

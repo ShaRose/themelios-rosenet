@@ -29,10 +29,10 @@ systemd.services.qemu_verifystorage = {
     wantedBy = [ "multi-user.target" ];
     script = ''
 if ( ! virsh pool-dumpxml default 2>/dev/null | grep -q "/atlas-qemu" ); then
-    if ( ! virsh pool-list | grep -q default ); then
+    if ( virsh pool-list | grep -q default ); then
         echo "Destroying default pool..."
-        virsh pool-delete default 2>/dev/null
-        virsh pool-undefine default 2>/dev/null
+        virsh pool-delete default
+        virsh pool-undefine default
     fi
     echo "Creating new pool for /atlas-qemu..."
     virsh pool-define-as --name default --type dir --target /atlas-qemu

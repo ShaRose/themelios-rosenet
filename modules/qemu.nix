@@ -10,16 +10,51 @@ users.users.sharoseadmin.extraGroups = [ "libvirtd" ];
 virtualisation.libvirtd.enable = true;
 virtualisation.libvirtd.qemuPackage = pkgs.qemu_kvm;
 
-# networking
-networking.bridges.brqemu = { interfaces = []; };
+# Filesystem configuration
 
-networking.interfaces.brqemu = {
-  ipv4 = {
-    addresses = [ { address = "10.10.3.1"; prefixLength = 24; } ];
-  };
-  ipv6 = {
-    addresses = [ { address = "2001:470:8c55:1003::1"; prefixLength = 64; } ];
-  };
+systemd.services.qemu_verifyzfs = {
+    before = [ "libvirtd" ];
+    description = "creates qemu zfs filesystems";
+    script = ''
+zfs create -p -o mountpoint=/atlas-qemu atlas-pool/qemu
+'';
+};
+
+systemd.services.qemu_verifystorage = {
+    after = [ "libvirtd" ];
+    description = "creates qemu zfs pool";
+    script = ''
+if ( virsh pool-dumpxml default 2>/dev/null | grep -q "/atlas-qemu" )
+    virsh pool-delete default
+    virsh pool-undefine default
+    virsh pool-define-as --name default --type dir --target /atlas-qemu
+    virsh pool-autostart default
+    virsh pool-start default
+fi
+'';
+};
+
+systemd.services.qemu_verifynetwork = {
+    after = [ "libvirtd" ];
+    description = "creates brqemu bridge";
+    script = ''
+if ( virsh net-info qemunet 2>/dev/null )
+    xmlpath=$(mktemp)
+    cat << 'EOF' > $xmlpath
+<network connections='1'>
+  <name>qemunet</name>
+  <forward mode='route'/>
+  <bridge name='brqemu' macTableManager='libvirt'/>
+  <ip address='10.10.3.1' netmask='255.255.255.0'/>
+  <ip family='ipv6' address='2001:470:8c55:1003::1' prefix='64'/>
+</network>
+EOF
+    virsh net-define $xmlpath
+    rm $xmlpath
+    virsh net-autostart qemunet
+    virsh net-start qemunet
+fi
+'';
 };
 
 #add brqemu to quagga

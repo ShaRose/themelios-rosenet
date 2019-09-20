@@ -29,8 +29,8 @@ systemd.services.qemu_verifystorage = {
     wantedBy = [ "multi-user.target" ];
     script = ''
 if ( ! virsh pool-dumpxml default 2>/dev/null | grep -q "/atlas-qemu" ); then
-    virsh pool-delete default
-    virsh pool-undefine default
+    virsh pool-delete default 2>/dev/null
+    virsh pool-undefine default 2>/dev/null
     virsh pool-define-as --name default --type dir --target /atlas-qemu
     virsh pool-autostart default
     virsh pool-start default
@@ -39,9 +39,11 @@ fi
 };
 
 systemd.services.qemu_verifynetwork = {
+    before = [ "dhcpd4.service" "radvd.service" ];
     after = [ "libvirtd.service" ];
     description = "creates brqemu bridge";
     path = [ pkgs.libvirt ];
+    wantedBy = [ "multi-user.target" ];
     script = ''
 if ( ! virsh net-info qemunet 2>/dev/null ); then
     xmlpath=$(mktemp)

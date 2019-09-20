@@ -28,7 +28,7 @@ systemd.services.qemu_verifystorage = {
     path = [ pkgs.libvirt ];
     wantedBy = [ "multi-user.target" ];
     script = ''
-if ( virsh pool-dumpxml default 2>/dev/null | grep -q "/atlas-qemu" )
+if ( ! virsh pool-dumpxml default 2>/dev/null | grep -q "/atlas-qemu" ); then
     virsh pool-delete default
     virsh pool-undefine default
     virsh pool-define-as --name default --type dir --target /atlas-qemu
@@ -43,7 +43,7 @@ systemd.services.qemu_verifynetwork = {
     description = "creates brqemu bridge";
     path = [ pkgs.libvirt ];
     script = ''
-if ( virsh net-info qemunet 2>/dev/null )
+if ( ! virsh net-info qemunet 2>/dev/null ); then
     xmlpath=$(mktemp)
     cat << 'EOF' > $xmlpath
 <network connections='1'>

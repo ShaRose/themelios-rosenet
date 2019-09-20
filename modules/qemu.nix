@@ -13,7 +13,8 @@ virtualisation.libvirtd.qemuPackage = pkgs.qemu_kvm;
 # Filesystem configuration
 
 systemd.services.qemu_verifyzfs = {
-    before = [ "libvirtd" ];
+    before = [ "libvirtd.service" ];
+    path = [ pkgs.zfs ];
     description = "creates qemu zfs filesystems";
     script = ''
 zfs create -p -o mountpoint=/atlas-qemu atlas-pool/qemu
@@ -21,8 +22,9 @@ zfs create -p -o mountpoint=/atlas-qemu atlas-pool/qemu
 };
 
 systemd.services.qemu_verifystorage = {
-    after = [ "libvirtd" ];
+    after = [ "libvirtd.service" ];
     description = "creates qemu zfs pool";
+    path = [ pkgs.libvirt ];
     script = ''
 if ( virsh pool-dumpxml default 2>/dev/null | grep -q "/atlas-qemu" )
     virsh pool-delete default
@@ -35,8 +37,9 @@ fi
 };
 
 systemd.services.qemu_verifynetwork = {
-    after = [ "libvirtd" ];
+    after = [ "libvirtd.service" ];
     description = "creates brqemu bridge";
+    path = [ pkgs.libvirt ];
     script = ''
 if ( virsh net-info qemunet 2>/dev/null )
     xmlpath=$(mktemp)

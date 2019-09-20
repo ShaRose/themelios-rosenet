@@ -29,8 +29,12 @@ systemd.services.qemu_verifystorage = {
     wantedBy = [ "multi-user.target" ];
     script = ''
 if ( ! virsh pool-dumpxml default 2>/dev/null | grep -q "/atlas-qemu" ); then
-    virsh pool-delete default 2>/dev/null
-    virsh pool-undefine default 2>/dev/null
+    if ( ! virsh pool-list | grep -q default ); then
+        echo "Destroying default pool..."
+        virsh pool-delete default 2>/dev/null
+        virsh pool-undefine default 2>/dev/null
+    fi
+    echo "Creating new pool for /atlas-qemu..."
     virsh pool-define-as --name default --type dir --target /atlas-qemu
     virsh pool-autostart default
     virsh pool-start default
@@ -45,7 +49,7 @@ systemd.services.qemu_verifynetwork = {
     path = [ pkgs.libvirt ];
     wantedBy = [ "multi-user.target" ];
     script = ''
-if ( ! virsh net-info qemunet 2>/dev/null ); then
+if ( ! virsh net-info qemunet 2>/dev/null >/dev/null ); then
     xmlpath=$(mktemp)
     cat << 'EOF' > $xmlpath
 <network connections='1'>
@@ -95,6 +99,7 @@ subnet 10.10.3.0 netmask 255.255.255.0 {
 services.radvd.enable = true;
 services.radvd.config = ''
 interface brqemu {
+  IgnoreIfMissing on;
   AdvSendAdvert on;
   prefix 2001:470:8c55:1003::/64 { };
 };

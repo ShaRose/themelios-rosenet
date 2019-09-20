@@ -15,6 +15,7 @@ virtualisation.libvirtd.qemuPackage = pkgs.qemu_kvm;
 systemd.services.qemu_verifyzfs = {
     before = [ "libvirtd.service" ];
     path = [ pkgs.zfs ];
+    wantedBy = [ "multi-user.target" ];
     description = "creates qemu zfs filesystems";
     script = ''
 zfs create -p -o mountpoint=/atlas-qemu atlas-pool/qemu
@@ -25,6 +26,7 @@ systemd.services.qemu_verifystorage = {
     after = [ "libvirtd.service" ];
     description = "creates qemu zfs pool";
     path = [ pkgs.libvirt ];
+    wantedBy = [ "multi-user.target" ];
     script = ''
 if ( virsh pool-dumpxml default 2>/dev/null | grep -q "/atlas-qemu" )
     virsh pool-delete default

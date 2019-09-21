@@ -1,7 +1,9 @@
 { config, pkgs, ... }:
 let
-    ipddr = "10.10.3.1";
+    ipaddr = "10.90.10.103";
     nicname = "mlxnic";
+    
+    ipnet = builtins.elemAt (builtins.match "(10\.[[:digit:]]{1,2}\.[[:digit:]]{1,2}\.)[[:digit:]]{1,3}" ipaddr) 0;
 in
 {
 
@@ -9,7 +11,7 @@ services.quagga.ospf = {
     enable = true;
     config = ''
 router ospf
-  network 10.90.10.0/24 area 0
+  network ${ipnet}0/24 area 0
 '';
 };
 
@@ -22,7 +24,7 @@ router ospf6
 };
 
 services.quagga.zebra.enable = true;
-services.quagga.zebra.config = ''router-id ${ipddr}'';
+services.quagga.zebra.config = ''router-id ${ipaddr}'';
 
 networking.firewall.extraCommands = ''
 iptables -A INPUT -i ${nicname} -p ospfigp -j ACCEPT

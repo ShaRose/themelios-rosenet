@@ -63,7 +63,7 @@ in
         script = ''
             if ( ! virsh net-info qemunet 2>/dev/null >/dev/null ); then
                 xmlpath=$(mktemp)
-                cat << 'EOF' > $xmlpath
+                echo "
                 <network connections='1'>
                     <name>qemunet</name>
                     <forward mode='route'/>
@@ -71,7 +71,7 @@ in
                     <ip address='${ip4net}1' netmask='255.255.255.0'/>
                     <ip family='ipv6' address='${ip6net}1' prefix='64'/>
                 </network>
-                EOF
+                " > $xmlpath
                 virsh net-define $xmlpath
                 rm $xmlpath
                 virsh net-autostart qemunet

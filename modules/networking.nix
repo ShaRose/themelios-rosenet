@@ -1,34 +1,47 @@
 { config, pkgs, ... }:
-{
+let
+    nicname = "mlxnic";
+    nicmac = "00:02:c9:4f:bd:60";
+    ipaddr = "10.90.10.103";
 
-#Arguments: nicname, nicmac, ipaddr (Rest can be calculated from that. Even the gateways and IPv6 versions).
+    parts = builtins.match "10\.([[:digit:]]{1,2})\.([[:digit:]]{1,2})\.([[:digit:]]{1,3})" ipaddr;
+
+    mainnet = builtins.elemAt parts 0;
+    subnet = builtins.elemAt parts 1;
+    devnet = builtins.elemAt parts 2;
+    psubnet = if (builtins.stringLength subnet) == 1 then ("0" + subnet) else (subnet);
+
+    ip4net = "10.${mainnet}.${subnet}.";
+    ip6net = "2001:470:8c55:${mainnet}${psubnet}::";
+in
+{
 
 networking.usePredictableInterfaceNames = false;
 services.udev.extraRules = ''
-KERNEL=="eth*", ATTR{address}=="00:02:c9:4f:bd:60", NAME="mlxnic"
+KERNEL=="eth*", ATTR{address}=="${nicmac}", NAME="${nicname}"
 '';
 
 networking.useDHCP = false;
 
 networking.nameservers = [ "10.90.13.1" "10.90.13.2" "10.90.13.3" ];
 
-networking.interfaces.mlxnic = {
+networking.interfaces.${nicname} = {
     ipv4 = {
-        addresses = [ { address = "10.90.10.103"; prefixLength = 24; } ];
+        addresses = [ { address = "${ip4net}${devnet}"; prefixLength = 24; } ];
     };
     ipv6 = {
-        addresses = [ { address = "2001:470:8c55:9010::103"; prefixLength = 64; } ];
+        addresses = [ { address = "${ip6net}${devnet}"; prefixLength = 64; } ];
     };
 };
 
 networking.defaultGateway = {
-    address = "10.90.10.1";
-    interface = "mlxnic";
+    address = "${ip4net}1";
+    interface = "${nicname}";
 };
 
 networking.defaultGateway6 = {
-    address = "2001:470:8c55:9010::1";
-    interface = "mlxnic";
+    address = "${ip6net}1";
+    interface = "${nicname}";
 };
 
 }

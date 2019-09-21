@@ -1,18 +1,19 @@
 { config, pkgs, ... }:
+let
+    dockeraddr = "10.10.5.1";
+    hostname = "atlas";
+
+    parts = builtins.match "10\.([[:digit:]]{1,2})\.([[:digit:]]{1,2})\.1" dockeraddr;
+
+    mainnet = builtins.elemAt parts 0;
+    subnet = builtins.elemAt parts 1;
+    psubnet = if (builtins.stringLength subnet) == 1 then ("0" + subnet) else (subnet);
+
+    ip4net = "10.${mainnet}.${subnet}.";
+    ip6net = "2001:470:8c55:${mainnet}${psubnet}::";
+in
 {
 # Arguments: dockeraddr (all the subnets etc can be calculated from it), hostname
-
-dockeraddr = "10.10.5.1"
-hostname = "atlas"
-
-parts = builtins.match "10\.([[:digit:]]{1,2})\.([[:digit:]]{1,2})\.1" dockeraddr
-
-mainnet = builtins.elemAt parts 0
-subnet = builtins.elemAt parts 1
-psubnet = if (builtins.stringLength subnet) == 1 then ("0" + subnet) else (subnet)
-
-ip4net = "10.${mainnet}.${subnet}."
-ip6net = "2001:470:8c55:${mainnet}${psubnet}::"
 
 virtualisation.docker.enable = true;
 virtualisation.docker.autoPrune.enable = true;

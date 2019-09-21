@@ -9,6 +9,7 @@ users.users.sharoseadmin.extraGroups = [ "libvirtd" ];
 #packages
 virtualisation.libvirtd.enable = true;
 virtualisation.libvirtd.qemuPackage = pkgs.qemu_kvm;
+environment.systemPackages = [ pkgs.OVMF ];
 
 # Filesystem configuration
 

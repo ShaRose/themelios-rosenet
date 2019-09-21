@@ -13,44 +13,45 @@ let
     ip6net = "2001:470:8c55:${mainnet}${psubnet}::";
 in
 {
-# Arguments: dockeraddr (all the subnets etc can be calculated from it), hostname
+    virtualisation.docker.enable = true;
+    virtualisation.docker.autoPrune.enable = true;
 
-virtualisation.docker.enable = true;
-virtualisation.docker.autoPrune.enable = true;
+### Filesystem configuration
 
-# Filesystem configuration
+    virtualisation.docker.storageDriver = "zfs";
+    virtualisation.docker.extraOptions = "--storage-opt zfs.fsname=${hostname}-pool/docker";
+    systemd.services.docker_verifyzfs = {
+        before = [ "docker.service" ];
+        path = [ pkgs.zfs ];
+        wantedBy = [ "multi-user.target" ];
+        description = "creates docker zfs filesystems";
+        script = ''
+            zfs create -p -o mountpoint=/${hostname}-docker ${hostname}-pool/docker
+        '';
+    };
 
-virtualisation.docker.storageDriver = "zfs";
-virtualisation.docker.extraOptions = "--storage-opt zfs.fsname=${hostname}-pool/docker";
-systemd.services.docker_verifyzfs = {
-    before = [ "docker.service" ];
-    path = [ pkgs.zfs ];
-    wantedBy = [ "multi-user.target" ];
-    description = "creates docker zfs filesystems";
-    script = ''
-zfs create -p -o mountpoint=/${hostname}-docker ${hostname}-pool/docker
-'';
-};
+### Network configuration
 
-# Network configuration
+    systemd.services.docker_verifynetwork = {
+        after = [ "docker.service" ];
+        description = "creates routed docker network brdocker";
+        path = [ pkgs.docker ];
+        wantedBy = [ "multi-user.target" ];
+        script = ''
+            if ( ! docker inspect brdocker 2>/dev/null >/dev/null ); then
+                docker network create --gateway ${ip4net}1 --subnet ${ip4net}0/24 \
+                    --ipv6 --gateway "${ip6net}1" --subnet "${ip6net}/64" \
+                    -o "com.docker.network.bridge.name"="brdocker" brdocker >/dev/null
+            fi
+        '';
+    };
 
-systemd.services.docker_verifynetwork = {
-    after = [ "docker.service" ];
-    description = "creates routed docker network brdocker";
-    path = [ pkgs.docker ];
-    wantedBy = [ "multi-user.target" ];
-    script = ''
-( docker inspect brdocker 2>/dev/null >/dev/null ) || docker network create --gateway ${ip4net}1 --subnet ${ip4net}0/24 --ipv6 --gateway "${ip6net}1" --subnet "${ip6net}/64" -o "com.docker.network.bridge.name"="brdocker" brdocker >/dev/null
-'';
-};
-
-services.quagga.ospf.config = ''
-router ospf
-  network ${ip4net}0/24 area 0
-'';
-services.quagga.ospf6.config = ''
-router ospf6
-  interface brdocker area 0.0.0.0
-'';
-
+    services.quagga.ospf.config = ''
+        router ospf
+            network ${ip4net}0/24 area 0
+    '';
+    services.quagga.ospf6.config = ''
+        router ospf6
+            interface brdocker area 0.0.0.0
+    '';
 }

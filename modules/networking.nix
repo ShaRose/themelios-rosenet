@@ -16,32 +16,32 @@ let
 in
 {
 
-networking.usePredictableInterfaceNames = false;
-services.udev.extraRules = ''
-KERNEL=="eth*", ATTR{address}=="${nicmac}", NAME="${nicname}"
-'';
+    networking.usePredictableInterfaceNames = false;
+    services.udev.extraRules = ''
+        KERNEL=="eth*", ATTR{address}=="${nicmac}", NAME="${nicname}"
+    '';
 
-networking.useDHCP = false;
+    networking.useDHCP = false;
 
-networking.nameservers = [ "10.90.13.1" "10.90.13.2" "10.90.13.3" ];
+    networking.nameservers = [ "10.90.13.1" "10.90.13.2" "10.90.13.3" ];
 
-networking.interfaces.${nicname} = {
-    ipv4 = {
-        addresses = [ { address = "${ip4net}${devnet}"; prefixLength = 24; } ];
+    networking.interfaces.${nicname} = {
+        ipv4 = {
+            addresses = [ { address = "${ip4net}${devnet}"; prefixLength = 24; } ];
+        };
+        ipv6 = {
+            addresses = [ { address = "${ip6net}${devnet}"; prefixLength = 64; } ];
+        };
     };
-    ipv6 = {
-        addresses = [ { address = "${ip6net}${devnet}"; prefixLength = 64; } ];
+
+    networking.defaultGateway = {
+        address = "${ip4net}1";
+        interface = "${nicname}";
     };
-};
 
-networking.defaultGateway = {
-    address = "${ip4net}1";
-    interface = "${nicname}";
-};
-
-networking.defaultGateway6 = {
-    address = "${ip6net}1";
-    interface = "${nicname}";
-};
+    networking.defaultGateway6 = {
+        address = "${ip6net}1";
+        interface = "${nicname}";
+    };
 
 }

@@ -7,18 +7,18 @@
 #qemuaddr = "10.10.3.1"
 
 imports = [
-  ../../modules/users.nix
-  ../../modules/tools.nix
-  ../../modules/common.nix
-  ../../modules/networking.nix
-  ../../modules/quagga.nix
-  ../../modules/qemu.nix
-  ../../modules/docker.nix
+    ../../modules/users.nix
+    ../../modules/tools.nix
+    ../../modules/common.nix
+    ../../modules/networking.nix
+    ../../modules/quagga.nix
+    ../../modules/qemu.nix
+    ../../modules/docker.nix
 ];
 
-networking.hostName = "atlas";
+    networking.hostName = "atlas";
 
-#Testing, so security can suck it
-security.sudo.wheelNeedsPassword = false;
+    #Testing, so security can suck it
+    security.sudo.wheelNeedsPassword = false;
 
 }

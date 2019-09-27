@@ -12,6 +12,7 @@ imports = [
     ../../modules/common.nix
     ../../modules/networking.nix
     ../../modules/quagga.nix
+    ../../modules/dnsdist.nix
     ../../modules/qemu.nix
     ../../modules/docker.nix
 ];

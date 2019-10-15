@@ -1,10 +1,25 @@
-{ config, pkgs, ... }:
+{ config, pkgs, lib, ... }:
+with lib;
+with types;
 {
 
-#ipaddr = "10.90.10.103"
-#nicname = "mlxnic"
-#nicmac = "00:02:c9:4f:bd:60"
-#qemuaddr = "10.10.3.1"
+    options = {
+        systeminfo = mkOption {
+            type = attrs;
+            description = "System Information for configuration";
+        };
+    };
+    config = {
+        systeminfo = {
+            hostname = "atlas";
+            ipAddr = "10.90.10.103";
+            nicName = "mlxnic";
+            nicMac = "00:02:c9:4f:bd:60";
+            qemuAddr = "10.10.3.1"
+            dnsAddr = "10.90.13.2"
+            dockerAddr = "10.10.5.1"
+        };
+    };
 
 imports = [
     ../../modules/users.nix
@@ -17,9 +32,11 @@ imports = [
     ../../modules/docker.nix
 ];
 
-    networking.hostName = "atlas";
+    networking.hostName = config.systeminfo.hostname;
 
     #Testing, so security can suck it
     security.sudo.wheelNeedsPassword = false;
 
+#bash <(curl https://raw.githubusercontent.com/a-schaefers/themelios/master/themelios) atlas ShaRose/themelios-rosenet
 }
+

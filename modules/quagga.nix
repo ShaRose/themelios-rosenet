@@ -1,7 +1,7 @@
 { config, pkgs, ... }:
 let
-    ipaddr = "10.90.10.103";
-    nicname = "mlxnic";
+    ipaddr = config.systeminfo.ipAddr;
+    nicname = config.systeminfo.nicName;
     
     ipnet = builtins.elemAt (builtins.match "(10\.[[:digit:]]{1,2}\.[[:digit:]]{1,2}\.)[[:digit:]]{1,3}" ipaddr) 0;
 in

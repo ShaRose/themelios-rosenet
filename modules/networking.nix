@@ -1,8 +1,8 @@
 { config, pkgs, ... }:
 let
-    nicname = "mlxnic";
-    nicmac = "00:02:c9:4f:bd:60";
-    ipaddr = "10.90.10.103";
+    nicname = config.systeminfo.nicName;
+    nicmac = config.systeminfo.nicMac;
+    ipaddr = config.systeminfo.ipAddr;
 
     parts = builtins.match "10\.([[:digit:]]{1,2})\.([[:digit:]]{1,2})\.([[:digit:]]{1,3})" ipaddr;
 

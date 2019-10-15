@@ -16,6 +16,7 @@ pkgs.tcpdump
 pkgs.cifs-utils
 pkgs.gitMinimal
 pkg.wget
+pkg.parallel
 ];
 
 }

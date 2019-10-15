@@ -1,7 +1,7 @@
 { config, pkgs, ... }:
 let
-    qemuaddr = "10.10.3.1";
-    hostname = "atlas";
+    qemuaddr = config.systeminfo.qemuAddr;
+    hostname = config.systeminfo.hostname;
 
     parts = builtins.match "10\.([[:digit:]]{1,2})\.([[:digit:]]{1,2})\.1" qemuaddr;
 

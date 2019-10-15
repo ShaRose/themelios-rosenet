@@ -1,7 +1,7 @@
 { config, pkgs, ... }:
 let
-    dockeraddr = "10.10.5.1";
-    hostname = "atlas";
+    dockeraddr = config.systeminfo.dockerAddr;
+    hostname = config.systeminfo.hostname;
 
     parts = builtins.match "10\.([[:digit:]]{1,2})\.([[:digit:]]{1,2})\.1" dockeraddr;
 

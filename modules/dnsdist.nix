@@ -1,6 +1,6 @@
 { config, pkgs, ... }:
 let
-    dnsaddr = "10.90.13.2";
+    dnsaddr = config.systeminfo.dnsAddr;
 in
 {
 

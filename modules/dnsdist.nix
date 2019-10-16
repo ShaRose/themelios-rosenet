@@ -1,6 +1,7 @@
 { config, pkgs, ... }:
 let
     dnsaddr = config.systeminfo.dnsAddr;
+    ip4net = 
 in
 {
 
@@ -17,7 +18,7 @@ in
 
     services.quagga.ospf.config = ''
         router ospf
-            network ${ip4net}0/24 area 0
+            network ${dnsaddr}/32 area 0
     '';
 
 ### Now enable dnsdist

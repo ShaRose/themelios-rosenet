@@ -10,18 +10,18 @@
         pkgs.tcpdump
         pkgs.cifs-utils
         pkgs.gitMinimal
-        pkg.wget
-        pkg.parallel
-        pkg.lz4
-        pkg.tmux
-        pkg.htop
-        pkg.iotop
-        pkg.sysstat
-        pkg.less
-        pkg.mtr
-        pkg.iftop
-        pkg.usbutils
-        pkg.lsof
+        pkgs.wget
+        pkgs.parallel
+        pkgs.lz4
+        pkgs.tmux
+        pkgs.htop
+        pkgs.iotop
+        pkgs.sysstat
+        pkgs.less
+        pkgs.mtr
+        pkgs.iftop
+        pkgs.usbutils
+        pkgs.lsof
     ];
 
 }

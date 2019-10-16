@@ -21,6 +21,7 @@
         pkg.mtr
         pkg.iftop
         pkg.usbutils
+        pkg.lsof
     ];
 
 }

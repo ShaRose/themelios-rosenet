@@ -15,9 +15,9 @@ with types;
             ipAddr = "10.90.10.103";
             nicName = "mlxnic";
             nicMac = "00:02:c9:4f:bd:60";
-            qemuAddr = "10.10.3.1"
-            dnsAddr = "10.90.13.2"
-            dockerAddr = "10.10.5.1"
+            qemuAddr = "10.10.3.1";
+            dnsAddr = "10.90.13.2";
+            dockerAddr = "10.10.5.1";
         };
     };
 
@@ -31,11 +31,6 @@ imports = [
     ../../modules/qemu.nix
     ../../modules/docker.nix
 ];
-
-    networking.hostName = config.systeminfo.hostname;
-
-    #Testing, so security can suck it
-    security.sudo.wheelNeedsPassword = false;
 
 #bash <(curl https://raw.githubusercontent.com/a-schaefers/themelios/master/themelios) atlas ShaRose/themelios-rosenet
 }

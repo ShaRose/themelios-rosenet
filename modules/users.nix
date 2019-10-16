@@ -1,5 +1,8 @@
 { config, pkgs, ... }:
 {
+
+security.sudo.wheelNeedsPassword = false;
+
 users.mutableUsers = false;
 
 users.users.root.hashedPassword = "$6$TeCIauhkcy$3gVFf/Dledmm1E92OVLNT8HpsTuXkQTpn2EJ01lrxVKOkN7EGPxnQNbKLBnWRvzYDiNpLUBrlvlTDblecv8q/1";

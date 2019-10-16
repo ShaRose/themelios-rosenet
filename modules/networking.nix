@@ -3,6 +3,7 @@ let
     nicname = config.systeminfo.nicName;
     nicmac = config.systeminfo.nicMac;
     ipaddr = config.systeminfo.ipAddr;
+    hostname = config.systeminfo.hostname;
 
     parts = builtins.match "10\.([[:digit:]]{1,2})\.([[:digit:]]{1,2})\.([[:digit:]]{1,3})" ipaddr;
 
@@ -15,7 +16,7 @@ let
     ip6net = "2001:470:8c55:${mainnet}${psubnet}::";
 in
 {
-
+    networking.hostName = "${hostname}";
     networking.usePredictableInterfaceNames = false;
     services.udev.extraRules = ''
         KERNEL=="eth*", ATTR{address}=="${nicmac}", NAME="${nicname}"

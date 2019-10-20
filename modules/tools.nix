@@ -22,6 +22,7 @@
         pkgs.iftop
         pkgs.usbutils
         pkgs.lsof
+        pkgs.dnsutils
     ];
 
 }

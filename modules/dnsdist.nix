@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, pkgs, lib, ... }:
 let
     dnsaddr = config.systeminfo.dnsAddr;
 in
@@ -33,6 +33,7 @@ in
 ### Now enable dnsdist
 
     services.dnsdist.enable = true;
+    systemd.services.dnsdist.serviceConfig.DynamicUser = lib.mkForce false;
     services.dnsdist.listenAddress = "${dnsaddr}";
     services.dnsdist.extraConfig = ''
         newServer("8.8.8.8")
@@ -40,7 +41,7 @@ in
         newServer("1.1.1.1")
         newServer("1.0.0.1")
 
-        pc = newPacketCache(10000, {maxTTL=86400, minTTL=0, temporaryFailureTTL=60, staleTTL=60, dontAge=false})
+        pc = newPacketCache(10000)
         getPool(""):setCache(pc)
 
         newServer({address="10.1.0.130",  pool="rosenet"})
@@ -53,6 +54,7 @@ in
 
         setPoolServerPolicy(leastOutstanding, "rosenet")
     '';
-
+    
+    
 }
 

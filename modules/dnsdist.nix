@@ -33,7 +33,8 @@ in
 ### Now enable dnsdist
 
     services.dnsdist.enable = true;
-    systemd.services.dnsdist.serviceConfig.DynamicUser = lib.mkForce false;
+    systemd.services.dnsdist.serviceConfig.AmbientCapabilities = "CAP_NET_BIND_SERVICE";
+    systemd.services.dnsdist.serviceConfig.CapabilityBoundingSet = lib.mkForce "CAP_NET_BIND_SERVICE";
     services.dnsdist.listenAddress = "${dnsaddr}";
     services.dnsdist.extraConfig = ''
         newServer("8.8.8.8")

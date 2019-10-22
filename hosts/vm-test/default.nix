@@ -1,55 +1,30 @@
-{ config, pkgs, ... }:
-# just an example top-level "configuration.nix" file within the themelios scheme
+{ config, pkgs, lib, ... }:
+with lib;
+with types;
 {
+
+    options = {
+        systeminfo = mkOption {
+            type = attrs;
+            description = "System Information for configuration";
+        };
+    };
+    config = {
+        systeminfo = {
+            hostname = "vm-test";
+            ipAddr = "10.99.99.20";
+            nicName = "vmnic";
+            nicMac = "00:0c:29:c8:6f:c9";
+        };
+    };
+
 imports = [
     ../../modules/users.nix
     ../../modules/tools.nix
+    ../../modules/common.nix
+    ../../modules/networking.nix
 ];
 
-i18n = {
-    consoleFont = "Lat2-Terminus16";
-    consoleKeyMap = "us";
-    defaultLocale = "en_US.UTF-8";
-};
-
-
-
-networking.usePredictableInterfaceNames = false;
-services.udev.extraRules = ''
-KERNEL=="eth*", ATTR{address}=="00:0c:29:c8:6f:c9", NAME="testnic"
-'';
-
-networking.useDHCP = false;
-
-networking.nameservers = [ "10.99.99.1" ];
-
-networking.interfaces.testnic = {
-    ipv4 = {
-        addresses = [ { address = "10.99.99.20"; prefixLength = 24; } ];
-    };
-    ipv6 = {
-        addresses = [ { address = "2001:470:8c55:9999::20"; prefixLength = 64; } ];
-    };
-};
-
-networking.defaultGateway = {
-    address = "10.99.99.1";
-    interface = "testnic";
-};
-
-networking.defaultGateway6 = {
-    address = "2001:470:8c55:9999::1";
-    interface = "testnic";
-};
-
-services.openssh = {
-    enable = true;
-    challengeResponseAuthentication = false;
-    passwordAuthentication = false;
-};
-
-
-time.timeZone = "America/St_Johns";
-
-networking.hostName = "vm-test";
+#bash <(curl https://raw.githubusercontent.com/a-schaefers/themelios/master/themelios) vm-test ShaRose/themelios-rosenet
 }
+

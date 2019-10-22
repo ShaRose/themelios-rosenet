@@ -13,7 +13,7 @@ services.xserver = {
 services.xserver.videoDrivers = [ "vmware" ];
 
 environment.systemPackages = [
-    pkgs.google-chrome
+    pkgs.chromium
 ];
 
 }

@@ -4,10 +4,16 @@
 services.xserver = {
     enable = true;
     desktopManager = {
-        default = "xfce";
+        default = "xfce4-14";
         xterm.enable = false;
-        xfce.enable = true;
+        xfce4-14.enable = true;
     };
 };
+
+services.xserver.videoDrivers = [ "vmware" ];
+
+environment.systemPackages = [
+    google-chrome
+];
 
 }

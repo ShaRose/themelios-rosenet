@@ -23,6 +23,7 @@ imports = [
     ../../modules/tools.nix
     ../../modules/common.nix
     ../../modules/networking.nix
+    ../../modules/xfce.nix
 ];
 
 #bash <(curl https://raw.githubusercontent.com/a-schaefers/themelios/master/themelios) vm-test ShaRose/themelios-rosenet

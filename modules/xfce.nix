@@ -3,14 +3,8 @@
 
 services.xserver = {
     enable = true;
-    displayManager.sddm = {
-      enable = true;
-      enableHidpi = true;
-    };
     desktopManager = {
-#      default = "xfce";
       xfce.enable = true;
-#      gnome3.enable = true;
     };
     exportConfiguration = true;
     videoDrivers = [ "vmware" ];
@@ -18,7 +12,8 @@ services.xserver = {
 
 environment.systemPackages = with pkgs; [
     chromium
-    virtviewer
+    virtmanager
+    
 ];
 
 }

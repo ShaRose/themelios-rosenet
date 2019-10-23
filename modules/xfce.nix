@@ -12,6 +12,7 @@
     environment.systemPackages = with pkgs; [
         chromium
         virtmanager
+        open-vm-tools
     ];
 
 }

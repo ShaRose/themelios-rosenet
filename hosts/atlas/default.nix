@@ -21,17 +21,16 @@ with types;
         };
     };
 
-imports = [
-    ../../modules/users.nix
-    ../../modules/tools.nix
-    ../../modules/common.nix
-    ../../modules/networking.nix
-    ../../modules/quagga.nix
-    ../../modules/dnsdist.nix
-    ../../modules/qemu.nix
-    ../../modules/docker.nix
-];
+    imports = [
+        ../../modules/users.nix
+        ../../modules/tools.nix
+        ../../modules/common.nix
+        ../../modules/networking.nix
+        ../../modules/quagga.nix
+        ../../modules/dnsdist.nix
+        ../../modules/qemu.nix
+        ../../modules/docker.nix
+    ];
 
-#bash <(curl https://raw.githubusercontent.com/a-schaefers/themelios/master/themelios) atlas ShaRose/themelios-rosenet
 }
 

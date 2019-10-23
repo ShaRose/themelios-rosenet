@@ -22,3 +22,7 @@ nix_zfs_extra_gc_automatic="true"
 nix_zfs_extra_gc_dates="weekly"
 nix_zfs_extra_gc_options="--delete-older-than 14d"
 nix_zfs_extra_clean_tmp_dir="true"
+
+# Re-switch the source for git
+
+git -C /tmp/cloned_remote remote get-url origin | grep -q 'git@github.com' && git -C /tmp/cloned_remote remote set-url origin "$(git remote get-url origin | sed -E 's#git@github.com:(.*)#https://github.com/\1.git#')"

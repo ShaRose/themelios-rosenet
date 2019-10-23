@@ -3,17 +3,30 @@
 
 services.xserver = {
     enable = true;
-    desktopManager = {
-        default = "xfce4-14";
-        xterm.enable = false;
-        xfce4-14.enable = true;
+    displayManager.sddm = {
+      enable = true;
+      enableHidpi = true;
     };
-};
+    desktopManager = {
+#      default = "xfce";
+#      xfce.enable = true;
+#      gnome3.enable = true;
+      plasma5.enable = true;
+    };
+    # windowManager.xmonad = {
+    #   enable = true;
+    #   enableContribAndExtras = true;
+    #   extraPackages = h: with h; [
+    #     MissingH
+    #   ];
+    # };
+    exportConfiguration = true;
+    videoDrivers = [ "vmware" ];
+  };
 
-services.xserver.videoDrivers = [ "vmware" ];
-
-environment.systemPackages = [
-    pkgs.chromium
+environment.systemPackages = with pkgs; [
+    chromium
+    virtviewer
 ];
 
 }

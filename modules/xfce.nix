@@ -9,17 +9,9 @@ services.xserver = {
     };
     desktopManager = {
 #      default = "xfce";
-#      xfce.enable = true;
+      xfce.enable = true;
 #      gnome3.enable = true;
-      plasma5.enable = true;
     };
-    # windowManager.xmonad = {
-    #   enable = true;
-    #   enableContribAndExtras = true;
-    #   extraPackages = h: with h; [
-    #     MissingH
-    #   ];
-    # };
     exportConfiguration = true;
     videoDrivers = [ "vmware" ];
   };

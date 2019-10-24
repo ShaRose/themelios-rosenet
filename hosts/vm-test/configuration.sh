@@ -3,6 +3,7 @@
 use_sgdisk_clear="true"     # use sgdisk --clear
 use_wipefs_all="true"       # use wipefs --all
 use_zero_disks="false"      # use dd if=/dev/zero ...
+install_arguments="--no-root-passwd"
 zfs_pool_name="vm-test"
 zfs_pool_disks=("/dev/disk/by-id/scsi-36000c296ff78e2bce4096c35a46f5be7") # Note: using /dev/disk/by-id is also preferable.
 zfs_pool_type=""            # use "" for single, or "mirror", "raidz1", etc.

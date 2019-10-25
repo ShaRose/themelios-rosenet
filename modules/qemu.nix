@@ -86,9 +86,15 @@ in
         router ospf
             network ${ip4net}0/24 area 0
     '';
+
     services.quagga.ospf6.config = ''
         router ospf6
             interface brqemu area 0.0.0.0
+    '';
+
+    services.quagga.zebra.config = ''
+        interface brqemu
+            no link-detect
     '';
 
 ### DHCP

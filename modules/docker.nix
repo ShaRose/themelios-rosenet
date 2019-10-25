@@ -54,4 +54,9 @@ in
         router ospf6
             interface brdocker area 0.0.0.0
     '';
+
+    services.quagga.zebra.config = ''
+        interface brdocker
+            no link-detect
+    '';
 }

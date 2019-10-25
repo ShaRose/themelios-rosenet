@@ -23,6 +23,13 @@ in
             network ${dnsaddr}/32 area 0
     '';
 
+### Now make sure it routes even if it's 'down'.
+
+    services.quagga.zebra.config = ''
+        interface dnsnic
+            no link-detect
+    '';
+
 ### Firewall rules
 
     networking.firewall.extraCommands = ''

@@ -23,6 +23,7 @@
         usbutils
         lsof
         dnsutils
+        file
     ];
 
 }

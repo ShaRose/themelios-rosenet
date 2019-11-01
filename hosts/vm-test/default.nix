@@ -24,8 +24,9 @@ with types;
         ../../modules/common.nix
         ../../modules/networking.nix
         ../../modules/xfce.nix
+        ../../modules/automatic-upgrades.nix
     ];
 
-
+#bash <(curl https://raw.githubusercontent.com/a-schaefers/themelios/master/themelios) vm-test ShaRose/themelios-rosenet
 }
 

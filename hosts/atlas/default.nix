@@ -30,7 +30,8 @@ with types;
         ../../modules/dnsdist.nix
         ../../modules/qemu.nix
         ../../modules/docker.nix
+        ../../modules/automatic-upgrades.nix
     ];
-
+#bash <(curl https://raw.githubusercontent.com/a-schaefers/themelios/master/themelios) atlas ShaRose/themelios-rosenet
 }
 

@@ -8,6 +8,8 @@
         serviceConfig.Type = "oneshot";
         path = with pkgs; [ git ];
         startAt = "04:00";
-        script = "git -C /nix-config/ pull";
+        script = ''
+            git -C /nix-config/ pull
+        '';
     };
 }

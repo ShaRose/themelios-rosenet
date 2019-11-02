@@ -54,11 +54,12 @@ in
     services.quagga.ospf6.config = ''
         router ospf6
             interface brdocker area 0.0.0.0
+        interface brdocker
+            ipv6 ospf6 passive
     '';
 
     services.quagga.zebra.config = ''
         interface brdocker
             no link-detect
-            #ipv6 ospf6 passive
     '';
 }

@@ -21,6 +21,7 @@ in
     services.quagga.ospf.config = ''
         router ospf
             network ${dnsaddr}/32 area 0
+            passive-interface dnsnic
     '';
 
 ### Now make sure it routes even if it's 'down'.

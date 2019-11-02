@@ -85,6 +85,7 @@ in
     services.quagga.ospf.config = ''
         router ospf
             network ${ip4net}0/24 area 0
+            passive-interface brqemu
     '';
 
     services.quagga.ospf6.config = ''
@@ -95,6 +96,7 @@ in
     services.quagga.zebra.config = ''
         interface brqemu
             no link-detect
+            ipv6 ospf6 passive
     '';
 
 ### DHCP

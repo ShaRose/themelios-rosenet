@@ -45,10 +45,10 @@ in
     systemd.services.dnsdist.serviceConfig.CapabilityBoundingSet = lib.mkForce "CAP_NET_BIND_SERVICE";
     services.dnsdist.listenAddress = "${dnsaddr}";
     services.dnsdist.extraConfig = ''
-        newServer("8.8.8.8")
-        newServer("8.8.4.4")
-        newServer("1.1.1.1")
-        newServer("1.0.0.1")
+        newServer({ address="8.8.8.8", checkTimeout=5000 })
+        newServer({ address="8.8.4.4", checkTimeout=5000 })
+        newServer({ address="1.1.1.1", checkTimeout=5000 })
+        newServer({ address="1.0.0.1", checkTimeout=5000 })
 
         pc = newPacketCache(10000)
         getPool(""):setCache(pc)

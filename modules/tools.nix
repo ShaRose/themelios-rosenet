@@ -1,10 +1,6 @@
 { config, pkgs, ... }:
 {
 
-    imports = [
-        ../../modules/unstable-packages.nix
-    ];
-
     programs.bash.enableCompletion = true;
     programs.vim.defaultEditor = true;
 

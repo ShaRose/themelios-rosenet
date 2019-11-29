@@ -14,6 +14,10 @@ let
 in
 {
 
+    require = [
+        ./quagga.nix
+    ];
+
     users.users.sharoseadmin.extraGroups = [ "libvirtd" ];
 
     virtualisation.libvirtd.enable = true;

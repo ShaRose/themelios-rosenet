@@ -13,6 +13,11 @@ let
     ip6net = "2001:470:8c55:${mainnet}${psubnet}::";
 in
 {
+
+    require = [
+        ./quagga.nix
+    ];
+
     virtualisation.docker.enable = true;
     virtualisation.docker.autoPrune.enable = true;
 

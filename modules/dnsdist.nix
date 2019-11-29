@@ -4,6 +4,10 @@ let
 in
 {
 
+    require = [
+        ./quagga.nix
+    ];
+
 ### Create interface
 
     networking.bridges.dnsnic = {
@@ -59,7 +63,7 @@ in
 
         addAction("local.rose.network", PoolAction("rosenet"))
 
-        setServerPolicy(firstAvailable)
+        setServerPolicy(leastOutstanding)
 
         setPoolServerPolicy(leastOutstanding, "rosenet")
     '';

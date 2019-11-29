@@ -28,7 +28,6 @@
         lsof
         dnsutils
         file
-        unstable.pyznap
     ];
 
 }

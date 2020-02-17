@@ -27,7 +27,7 @@ with types;
         KERNEL=="eth*", ATTR{address}=="74:da:38:3b:0f:d9", NAME="wlaniot"
     '';
     
-    networking.networkmanager.unmanaged = [ "interface-name:wlaniot" ];
+    #networking.networkmanager.unmanaged = [ "interface-name:wlaniot" ];
     
     services.hostapd = {
         enable        = true;

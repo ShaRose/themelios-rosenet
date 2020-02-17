@@ -9,14 +9,14 @@ with types;
             description = "System Information for configuration";
         };
     };
-    config = {
-        systeminfo = {
-            hostname = "helios";
-            ipAddr = "10.90.10.101";
-            nicName = "gbnic";
-            nicMac = "b8:97:5a:96:0d:4e";
-        };
-    };
+#    config = {
+#        systeminfo = {
+#            hostname = "helios";
+#            ipAddr = "10.90.10.101";
+#            nicName = "gbnic";
+#            nicMac = "b8:97:5a:96:0d:4e";
+#        };
+#    };
 
 # Temporary test config
 

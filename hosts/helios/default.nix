@@ -3,12 +3,12 @@ with lib;
 with types;
 {
 
-    options = {
-        systeminfo = mkOption {
-            type = attrs;
-            description = "System Information for configuration";
-        };
-    };
+#    options = {
+#        systeminfo = mkOption {
+#            type = attrs;
+#            description = "System Information for configuration";
+#        };
+#    };
 #    config = {
 #        systeminfo = {
 #            hostname = "helios";
